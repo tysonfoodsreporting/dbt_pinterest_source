@@ -1,8 +1,5 @@
 {{ config(enabled=var('ad_reporting__pinterest_ads_enabled', True),
-    unique_key = ['source_relation','country_id','region_id'],
-    partition_by={
-      "field": "region_id"
-    }
+    unique_key = ['source_relation','country_id','region_id']
     ) }}
 
 with base as (
