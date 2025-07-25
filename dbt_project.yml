@@ -25,7 +25,7 @@ vars:
     pinterest__pin_promotion_targeting_report_passthrough_metrics: []
 models:
   pinterest_source:
-    +schema: pinterest_source
+    +schema: pinterest_ads_stg_prod
     +materialized: table
     tmp:
       +materialized: view
