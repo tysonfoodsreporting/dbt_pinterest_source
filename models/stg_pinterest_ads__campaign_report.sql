@@ -35,7 +35,7 @@ final as (
 
     select
         source_relation, 
-        {{ dbt.date_trunc('day', 'date') }} as date_day,
+        TIMESTAMP(DATETIME(TIMESTAMP(date), "America/Chicago")) as date_day,
         cast(campaign_id as {{ dbt.type_string() }}) as campaign_id,
         campaign_name,
         campaign_status,
