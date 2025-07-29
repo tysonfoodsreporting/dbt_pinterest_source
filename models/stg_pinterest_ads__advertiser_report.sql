@@ -34,7 +34,7 @@ final as (
 
     select
         source_relation, 
-        {{ dbt.date_trunc('day', 'date') }} as date_day,
+        TIMESTAMP(DATETIME(TIMESTAMP(date), "America/Chicago")) as date_day,
         cast(advertiser_id as {{ dbt.type_string() }}) as advertiser_id,
         coalesce(impression_1,0) + coalesce(impression_2,0) as impressions,
         coalesce(clickthrough_1,0) + coalesce(clickthrough_2,0) as clicks,
