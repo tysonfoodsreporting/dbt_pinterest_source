@@ -1,4 +1,11 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['ad_reporting__pinterest_ads_enabled','pinterest__using_pin_promotion_targeting_report'])) }}
+{{ config(enabled=var('ad_reporting__pinterest_ads_enabled', True),
+    unique_key = ['source_relation','date_day','pin_promotion_id','ad_group_id','campaign_id','advertiser_id','targeting_type'],
+    partition_by={
+      "field": "date_day", 
+      "data_type": "TIMESTAMP",
+      "granularity": "day"
+    }
+    ) }}
 
 with base as (
 
@@ -24,7 +31,7 @@ with base as (
     select
         source_relation,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
-        cast(date as {{ dbt.type_timestamp() }}) as date_day,
+        TIMESTAMP(DATETIME(TIMESTAMP(date), "America/Chicago")) as date_day,
         cast(targeting_type as {{ dbt.type_string() }}) as targeting_type,
         cast(targeting_value as {{ dbt.type_string() }}) as targeting_value,
         cast(ad_group_id as {{ dbt.type_string() }}) as ad_group_id,

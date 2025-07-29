@@ -1,4 +1,11 @@
-{{ config(enabled=var('ad_reporting__pinterest_ads_enabled', True)) }}
+{{ config(enabled=var('ad_reporting__pinterest_ads_enabled', True),
+    unique_key = ['source_relation','date_day','pin_promotion_id','ad_group_id','campaign_id','advertiser_id'],
+    partition_by={
+      "field": "date_day", 
+      "data_type": "TIMESTAMP",
+      "granularity": "day"
+    }
+    ) }}
 
 with base as (
 
@@ -28,7 +35,7 @@ final as (
 
     select
         source_relation, 
-        {{ dbt.date_trunc('day', 'date') }} as date_day,
+        TIMESTAMP(DATETIME(TIMESTAMP(date), "America/Chicago")) as date_day,
         cast(pin_promotion_id as {{ dbt.type_string() }}) as pin_promotion_id,
         cast(ad_group_id as {{ dbt.type_string() }}) as ad_group_id,
         cast(campaign_id as {{ dbt.type_string() }}) as campaign_id,
