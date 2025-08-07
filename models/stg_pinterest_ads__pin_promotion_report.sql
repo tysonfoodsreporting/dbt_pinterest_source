@@ -2,7 +2,7 @@
     unique_key = ['source_relation','date_day','pin_promotion_id','ad_group_id','campaign_id','advertiser_id'],
     partition_by={
       "field": "date_day", 
-      "data_type": "TIMESTAMP",
+      "data_type": "date",
       "granularity": "day"
     }
     ) }}
