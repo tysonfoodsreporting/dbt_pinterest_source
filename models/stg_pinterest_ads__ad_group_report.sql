@@ -35,7 +35,7 @@ final as (
 
     select
         source_relation, 
-        date(DATETIME(TIMESTAMP(date), "America/Chicago")) as date_day,
+        date(date) as date_day,
         cast(ad_group_id as {{ dbt.type_string() }}) as ad_group_id,
         ad_group_name,
         ad_group_status,
