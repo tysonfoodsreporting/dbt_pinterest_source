@@ -45,10 +45,7 @@ final as (
         coalesce(spend_in_micro_dollar, 0) / 1000000.0 as spend,
         coalesce(total_conversions, 0) as total_conversions,
         coalesce(total_conversions_quantity, 0) as total_conversions_quantity,
-        coalesce(total_conversions_value_in_micro_dollar, 0) / 1000000.0 as total_conversions_value,
-        -- Added Video Performance Metrics
-        coalesce(video_paid_0_p, 0) + coalesce(video_earned_0_p, 0) as video_plays, -- Standardized video metric denoting actual video start
-        coalesce(video_paid_3_sec_views, 0) + coalesce(video_earned_3_sec_views, 0) as video_views -- Standardized video metrics for view counts.
+        coalesce(total_conversions_value_in_micro_dollar, 0) / 1000000.0 as total_conversions_value
 
         {{ pinterest_ads_fill_pass_through_columns(pass_through_fields=var('pinterest__pin_promotion_report_passthrough_metrics'), except=['total_conversions','total_conversions_quantity','total_conversions_value']) }}
 
